@@ -1,0 +1,155 @@
+<div class="container-fluid mx-auto mt-10">
+  <div class="flex shadow-md my-10">
+    <div class="row">
+      <div class="col-8 mt-2">
+        <div class="bg-white p-3 rounded-lg">
+          <div class="d-flex justify-content-between border-bottom pb-8">
+            <h3>Giỏ hàng</h3>
+            <h4>3 Sản phẩm</h4>
+          </div>
+          <div>
+            <table class="table table-borderless ">
+              <tr class="border-bottom">
+                <td class="col-6">SẢN PHẨM</td>
+                <td class="col-2">GIÁ</td>
+                <td class="col-2">SỐ LƯỢNG</td>
+                <td class="col-2">TỔNG TIỀN</td>
+              </tr>
+              <tr class="border-bottom">
+                <td class="col-6">
+                  <div class="d-flex align-items-center">
+                    <button class="btn">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                           stroke-width="1.5"
+                           stroke="#8E9AAB" style="margin-right: 4px;">
+                        <path d="M17.9964 6L6.00391 17.9925" stroke="inherit"
+                              stroke-width="inherit"
+                              stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M18.0125 18.0125L6 6" stroke="inherit" stroke-width="inherit"
+                              stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                    </button>
+                    <div style="width: 40px; height: 50px">
+                      <img class="h-100"
+                           src="https://data-service.pharmacity.io/pmc-upload-media/production/pmc-ecm-core/__sized__/products/P23116_17-thumbnail-255x255-70.jpg"
+                           alt="">
+                    </div>
+                    <div class="pl-4 text-success">
+                      Nước uống nhân sâm nguyên củ Welson Ginseng Root Drink (Hộp 10 chai)
+                    </div>
+                  </div>
+                </td>
+                <td class="col-2 align-middle">
+                  {{ firstItemPrice|number:'1.0-2'}} VND
+                </td>
+                <td class="col-2 align-middle">
+                  <div class="d-flex align-items-center justify-content-between product-quantity-group">
+                    <button class="btn btn-light" (click)="decreaseProduct(1)">-</button>
+                    <input readonly [value]="firstItemQuantity" class="bg-success">
+                    <button class="btn btn-light" (click)="increaseProduct(1)">+</button>
+                  </div>
+                </td>
+                <td class="col-2 align-middle font-weight-bold">
+                  {{firstItemPrice * firstItemQuantity | number:'1.0-2'}} VND
+                </td>
+              </tr>
+              <tr class="border-bottom">
+                <td class="col-6">
+                  <div class="d-flex align-items-center">
+                    <button class="btn">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                           stroke-width="1.5"
+                           stroke="#8E9AAB" style="margin-right: 4px;">
+                        <path d="M17.9964 6L6.00391 17.9925" stroke="inherit"
+                              stroke-width="inherit"
+                              stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M18.0125 18.0125L6 6" stroke="inherit" stroke-width="inherit"
+                              stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                    </button>
+                    <div style="width: 40px; height: 50px">
+                      <img class="h-100"
+                           src="https://data-service.pharmacity.io/pmc-upload-media/production/pmc-ecm-core/__sized__/products/P05510_1_l-thumbnail-255x255.webp"
+                           alt="">
+                    </div>
+                    <div class="pl-4 text-success">
+                      Xịt chống muỗi hương cam Soffell (80ml)
+                    </div>
+                  </div>
+                </td>
+                <td class="col-2 align-middle">
+                  {{ secondItemPrice|number:'1.0-2'}} VND
+                </td>
+                <td class="col-2 align-middle">
+                  <div class="d-flex align-items-center justify-content-between product-quantity-group">
+                    <button class="btn btn-light" (click)="decreaseProduct(2)">-</button>
+                    <input readonly [value]="secondItemQuantity" class="bg-success">
+                    <button class="btn btn-light" (click)="increaseProduct(2)">+</button>
+                  </div>
+                </td>
+                <td class="col-2 align-middle font-weight-bold">
+                  {{ secondItemPrice * secondItemQuantity|number:'1.0-2'}} VND
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-4 mt-2">
+        <div class="bg-white p-3 rounded-lg">
+          <div class="d-flex justify-content-between border-bottom pb-8">
+            <h3>Tổng tiền</h3>
+          </div>
+          <div>
+            <table class="table table-borderless ">
+              <tr>
+                <td class="col-4">Tạm tính</td>
+                <td class="col-8 text-right">
+                  {{total|number:'1.0-2'}} VND
+                </td>
+              </tr>
+              <tr class="border-bottom font-weight-bold">
+                <td class="col-4">Tổng tiền</td>
+                <td class="col-8 text-right ">
+                  {{total|number:'1.0-2'}} VND
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                </td>
+
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="backdrop" [ngStyle]="{'display':display}">
+  <div [ngStyle]="{'display':display}" class="modal" id="exampleModal" tabindex="-1" role="dialog"
+       aria-labelledby="exampleModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Paypal Payment Demo</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p *ngIf="isSuccess"> Payment successfull</p>
+          <p *ngIf="isCancel"> Payment cancel</p>
+          <p *ngIf="isError"> Payment Error</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
